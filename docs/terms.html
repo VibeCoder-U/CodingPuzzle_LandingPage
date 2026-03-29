@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodingPuzzle - Terms of Service</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="logo"><a href="index.html" style="color:inherit;text-decoration:none;">CodingPuzzle</a></div>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav_about">About</a>
+    <a href="howto.html" data-i18n="nav_howto">How to Use</a>
+    <a href="terms.html" data-i18n="nav_terms">Terms</a>
+    <a href="licenses.html" data-i18n="nav_licenses">Licenses</a>
+    <a href="privacy.html" data-i18n="nav_privacy">Privacy</a>
+    <select id="lang-select">
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="it">Italiano</option>
+      <option value="es">Español</option>
+      <option value="nl">Nederlands</option>
+      <option value="pl">Polski</option>
+      <option value="pt">Português</option>
+      <option value="ru">Русский</option>
+      <option value="tr">Türkçe</option>
+      <option value="ko">한국어</option>
+      <option value="zh-Hans">简体中文</option>
+      <option value="zh-Hant">繁體中文</option>
+    </select>
+  </div>
+</nav>
+<main>
+
+<section id="terms">
+  <h2 data-i18n="terms_title">Terms of Service</h2>
+  <div class="card">
+    <p data-i18n="terms_intro">CodingPuzzle ("the App") is provided by yt-Studio ("we"). By using the App, you agree to these terms.</p>
+
+    <h3 data-i18n="terms_purpose_title">Purpose of Use</h3>
+    <p data-i18n="terms_purpose">The App is provided for educational and entertainment purposes and does not guarantee accuracy, completeness, or usefulness.</p>
+
+    <h3 data-i18n="terms_disclaimer_title">Disclaimer (No Warranty)</h3>
+    <p data-i18n="terms_disclaimer">The App is provided "AS IS" without any warranty, express or implied, including but not limited to:</p>
+    <ul>
+      <li data-i18n="terms_w1">Warranties of merchantability</li>
+      <li data-i18n="terms_w2">Fitness for a particular purpose</li>
+      <li data-i18n="terms_w3">Accuracy, reliability, or completeness</li>
+    </ul>
+
+    <h3 data-i18n="terms_liability_title">Limitation of Liability</h3>
+    <p data-i18n="terms_liability">We shall not be liable for any damages arising from or related to the use or inability to use the App, including but not limited to:</p>
+    <ul>
+      <li data-i18n="terms_l1">Direct damages</li>
+      <li data-i18n="terms_l2">Indirect damages</li>
+      <li data-i18n="terms_l3">Incidental damages</li>
+      <li data-i18n="terms_l4">Special damages</li>
+      <li data-i18n="terms_l5">Consequential damages (including loss of profits or data)</li>
+    </ul>
+    <p data-i18n="terms_liability2">Our liability is excluded to the maximum extent permitted by applicable law.</p>
+
+    <h3 data-i18n="terms_risk_title">Use at Your Own Risk</h3>
+    <p data-i18n="terms_risk">You use the App at your own risk and are solely responsible for any consequences arising from your use of the App.</p>
+
+    <h3 data-i18n="terms_accuracy_title">Content Accuracy</h3>
+    <p data-i18n="terms_accuracy">Educational materials, exercises, translations, and text-to-speech audio in the App may contain errors. We do not guarantee their accuracy.</p>
+
+    <h3 data-i18n="terms_thirdparty_title">Third-Party Content</h3>
+    <p data-i18n="terms_thirdparty">The App may contain content provided by third parties. We assume no responsibility for such content.</p>
+
+    <h3 data-i18n="terms_service_title">Service Changes, Suspension, and Termination</h3>
+    <p data-i18n="terms_service">We may modify, suspend, or terminate the App without prior notice. We are not liable for any damages resulting from such actions.</p>
+
+    <h3 data-i18n="terms_subscription_title">Subscriptions and Refunds</h3>
+    <p data-i18n="terms_subscription">Subscription purchases, renewals, cancellations, and refunds are managed through the Meta Horizon Store. We are not directly involved in billing and cannot determine or process refunds. To request a refund, please log in to your Meta account and contact Meta Horizon Store support. Subscription pricing, content, and terms are subject to change without notice.</p>
+
+    <h3 data-i18n="terms_changes_title">Changes to These Terms</h3>
+    <p data-i18n="terms_changes">We may modify these terms at any time. Continued use of the App constitutes acceptance of the updated terms.</p>
+
+    <h3 data-i18n="terms_law_title">Governing Law and Jurisdiction</h3>
+    <p data-i18n="terms_law">These terms are governed by the laws of Japan. Any disputes related to the App shall be subject to the exclusive jurisdiction of the courts located in our place of business.</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <p>&copy; 2025 yt-Studio. All rights reserved.</p>
+</footer>
+<script>
+const LANGS = {
+  'en': 'English', 'ja': '日本語', 'de': 'Deutsch', 'fr': 'Français',
+  'it': 'Italiano', 'es': 'Español', 'nl': 'Nederlands', 'pl': 'Polski',
+  'pt': 'Português', 'ru': 'Русский', 'tr': 'Türkçe', 'ko': '한국어',
+  'zh-Hans': '简体中文', 'zh-Hant': '繁體中文'
+};
+let currentStrings = {};
+async function loadLanguage(lang) {
+  try {
+    const res = await fetch(`i18n/${lang}.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    currentStrings = await res.json();
+    applyStrings();
+    document.documentElement.lang = lang;
+    localStorage.setItem('codingpuzzle_lang', lang);
+  } catch (e) {
+    console.warn(`Failed to load ${lang}, falling back to en`, e);
+    if (lang !== 'en') loadLanguage('en');
+  }
+}
+function applyStrings() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (currentStrings[key]) el.textContent = currentStrings[key];
+  });
+}
+function detectLanguage() {
+  const saved = localStorage.getItem('codingpuzzle_lang');
+  if (saved && LANGS[saved]) return saved;
+  const nav = navigator.language || navigator.languages?.[0] || 'en';
+  const code = nav.toLowerCase();
+  if (code.startsWith('zh-hant') || code === 'zh-tw' || code === 'zh-hk') return 'zh-Hant';
+  if (code.startsWith('zh')) return 'zh-Hans';
+  const short = code.split('-')[0];
+  return LANGS[short] ? short : 'en';
+}
+document.getElementById('lang-select').addEventListener('change', e => {
+  loadLanguage(e.target.value);
+});
+const initLang = detectLanguage();
+document.getElementById('lang-select').value = initLang;
+loadLanguage(initLang);
+</script>
+</body>
+</html>
